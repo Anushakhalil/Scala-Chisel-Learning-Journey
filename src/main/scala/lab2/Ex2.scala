@@ -32,8 +32,8 @@ class Ex2 extends Module {
     ))
   ))
   val Mux2_to_1 = MuxLookup(io.sel2, false.B, Array(
-    (0.U) -> Mux4_to_1_b,
-    (1.U) -> Mux4_to_1_a)
+    (1.U) -> Mux4_to_1_b,
+    (0.U) -> Mux4_to_1_a)
   )
   // Connecting output of 2 _to_1 Mux with the output port .
   io.out := Mux2_to_1
