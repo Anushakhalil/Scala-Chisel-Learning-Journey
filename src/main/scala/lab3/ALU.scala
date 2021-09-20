@@ -16,7 +16,7 @@ val ALU_SRL= 8.U(4.W )
 val ALU_SRA= 9.U(4.W )
 val ALU_COPY_A = 10.U(4.W )
 val ALU_COPY_B = 11.U(4.W )
-//val ALU_XXX= 15.U(4.W )
+val ALU_XXX= 15.U(4.W )
 }
 
 trait Config {
@@ -40,7 +40,8 @@ val sum = Output(UInt( WLEN.W ))
 class ALU extends Module with Config{
 val io = IO( new ALUIO)
 val sum = io.in_A + Mux(io.alu_Op(0) , -io.in_B , io.in_B)
-val cmp = Mux(io.in_A(WLEN-1) === io.in_B(WLEN-1) , sum(WLEN-1) , Mux(io.alu_Op(1) , io.in_B(WLEN-1) , io.in_A(WLEN-1)))
+val cmp = Mux(io.in_A(WLEN-1) === io.in_B(WLEN-1) , sum(WLEN-1), 
+Mux(io.alu_Op(1) , io.in_B(WLEN-1) , io.in_A(WLEN-1)))
 val shamt = io.in_B(4 ,0).asUInt  // shift amount
 val shin = Mux(io.alu_Op(3) , io.in_A , Reverse(io.in_A )) 
 
