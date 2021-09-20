@@ -28,18 +28,18 @@ class Task2 extends Module{
 
     val S = Cat(Fill(20,io.instr(31)),io.instr(31,25),io.instr(11,7))
 
-    val U = Cat(Fill(12,io.instr(31)),io.instr(31,12) << zero5bit)
+    val U = (Cat(Fill(12,io.instr(31)),io.instr(31,12))) << zero5bit
 
     val B = Cat(Fill(19,io.instr(31)),immm_B)
 
     val J = Cat(Fill(11,io.instr(31)),immm_J)
 
     val bits2To6 = io.instr(6,2)
-    val out = Mux(Itype === bits2To6, I , 0.U)
+    // val out = Mux(Itype === bits2To6, I , 0.U)
     
-    // val out = Mux( Itype === bits2To6 , I, Mux(Utype === bits2To6, U, Mux( Stype === bits2To6, S,
-    // Mux(Btype === bits2To6, B, Mux(Jtype === bits2To6, J, 0.U
-    // )))))
+    val out = Mux( Itype === bits2To6 , I, Mux(Utype === bits2To6, U, Mux( Stype === bits2To6, S,
+    Mux(Btype === bits2To6, B, Mux(Jtype === bits2To6, J, 0.U
+    )))))
 
 io.immd_se := out
 }
