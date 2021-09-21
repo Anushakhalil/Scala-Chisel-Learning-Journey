@@ -6,9 +6,9 @@ import org.scalatest._
 class Task2Test extends FreeSpec with ChiselScalatestTester{
   "Immediate Generation Test Itype" in {
     test(new Task2()){ c =>
-        c.io.instr.poke(103874579.U)
+        c.io.instr.poke("h0000c537".U)
         c.clock.step(1)
-        c.io.immd_se.expect(99.U)
+        c.io.immd_se.expect(12.U)
     }
   }
 }
