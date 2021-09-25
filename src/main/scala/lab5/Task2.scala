@@ -12,7 +12,10 @@ class Task2[ T <: Data ]( gen : T ) extends Module {
         val out = Output(new datapacket(gen))
         val in = Input(new datapacket(gen))
     })
-
-    io.out.datafield := io.in.datafield
-    io.out.addrfield := io.in.addrfield
+// --> this
+    // io.out.datafield := io.in.datafield
+    // io.out.addrfield := io.in.addrfield
+// Or
+// -- > this
+    io.out <> io.in
 }
