@@ -6,20 +6,27 @@ class Ex_3 extends Module{
         val reload = Input(Bool())
         val out = Output(Bool())
     })
-
+    val din = 6.U
     val timer_count = RegInit(0.U(8.W))
-    val next = WireInit(6.U)
-    
-    io.out := 0.U
+    val next = WireInit(0.U)
+    val done = timer_count =/= 0.U 
 
+    io.out := 0.B
     when(io.reload){
-        when(timer_count =/= 0.U){
+       next := din
+       
+       when(done){
             next := timer_count - 1.U
+            timer_count := timer_count - 1.U
+            io.out := 0.B
+
         }.otherwise{
-            io.out := 1.B
             timer_count := next
+            io.out := 1.B
         }
-    }otherwise{
+
+    }.otherwise{
         DontCare
     }
+
 }
