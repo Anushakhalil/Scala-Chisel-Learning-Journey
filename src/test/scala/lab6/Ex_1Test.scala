@@ -6,10 +6,13 @@ import chiseltest._
 class Ex_1Test extends FreeSpec with ChiselScalatestTester{
     "shift register" in{
         test(new Ex_1()){c => 
-            c.io.in.poke(4.U)
+            c.io.in.poke(3.U)
             c.io.reload.poke(1.B)
-            c.clock.step(5)
-            // c.io.out.expect(2.U)
+            c.clock.step(1)
+
+            c.io.reload.poke(0.B)
+            c.clock.step(6)
+
         }
     }
 

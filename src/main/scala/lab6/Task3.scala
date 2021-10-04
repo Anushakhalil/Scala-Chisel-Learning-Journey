@@ -10,17 +10,24 @@ class Task3( val len : Int = 3) extends Module {
         val load = Input(Bool())
 
 })
-    val state = RegInit(1.U(len.W))
+    io.out(0) := 0.B
+    io.out(1) := 0.B
+    io.out(2) := 0.B
 
-    for (i <- 0 until len){
+    val state = RegInit(0.U(len.W))
+    val count = RegInit(0.U(2.W))
 
+    when(count =/= 3.U){
         when(io.load){
             val nextState = (state << 1 ) | io.in
             state := nextState
-            io.out(i) := state(i).asBool
+            io.out(count) := state(count).asBool
+            count := count + 1.U
 
         }.otherwise{
-            io.out(i) := io.load_in(i)
+            state := io.load_in(count).asUInt
         }
+        
     }
+
 }

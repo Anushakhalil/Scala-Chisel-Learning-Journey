@@ -14,16 +14,19 @@ val dataIn = Input( Vec(4,UInt( width.W )))
 val dataOut = Output( Vec(4,UInt( width.W )))
 })
 
-val mem = SyncReadMem(1024,Vec(4 , UInt(width.W )))
-// mem.write( io.addr , io.dataIn , io.mask )
-
-val a =  Reg(Vec(4,UInt()))
-a(0) := io.dataIn(0) & io.mask(0)
-a(1) := io.dataIn(1) & io.mask(1)
-a(2) := io.dataIn(2) & io.mask(2)
-a(3) := io.dataIn(3) & io.mask(3)
+val mem = SyncReadMem(1024, Vec(4,UInt(width.W)))
+// val maskval = Cat(io.mask(3),io.mask(2),io.mask(1),io.mask(0))
+// val dataval = Cat(io.dataIn(3),io.dataIn(2),io.dataIn(1),io.dataIn(0))
+// when(io.write){
+//     mem.write( io.addr , io.dataIn , io.mask )
+// }
 
 when(io.write){
+    val a = Reg(Vec(4,UInt(32.W )))
+    a(0) := io.dataIn(0) & io.mask(0)
+    a(1) := io.dataIn(1) & io.mask(1)
+    a(2) := io.dataIn(2) & io.mask(2)
+    a(3) := io.dataIn(3) & io.mask(3)
     mem.write(io.addr, a)
 }
 
