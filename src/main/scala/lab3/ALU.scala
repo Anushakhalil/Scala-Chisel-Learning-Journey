@@ -20,12 +20,10 @@ val ALU_XXX= 15.U(4.W )
 }
 
 trait Config {
-// word length configuration parameter
 
 val WLEN= 32
-// ALU operation control signal width
-
 val ALUOP_SIG_LEN = 4
+
 }
 
 import ALUOP._
@@ -39,11 +37,11 @@ val sum = Output(UInt( WLEN.W ))
 
 class ALU extends Module with Config{
 val io = IO( new ALUIO)
-val sum = io.in_A + Mux(io.alu_Op(0) , -io.in_B , io.in_B)
-val cmp = Mux(io.in_A(WLEN-1) === io.in_B(WLEN-1) , sum(WLEN-1), 
-Mux(io.alu_Op(1) , io.in_B(WLEN-1) , io.in_A(WLEN-1)))
-val shamt = io.in_B(4 ,0).asUInt  // shift amount
-val shin = Mux(io.alu_Op(3) , io.in_A , Reverse(io.in_A )) 
+    val sum = io.in_A + Mux(io.alu_Op(0) , -io.in_B , io.in_B)
+    val cmp = Mux(io.in_A(WLEN-1) === io.in_B(WLEN-1) , sum(WLEN-1), 
+    Mux(io.alu_Op(1) , io.in_B(WLEN-1) , io.in_A(WLEN-1)))
+    val shamt = io.in_B(4 ,0).asUInt  // shift amount
+    val shin = Mux(io.alu_Op(3) , io.in_A , Reverse(io.in_A )) 
 
 // Create variable shin in which use Mux which compares function bits with FN_SR 
 //(function shift right) OR FN_SRA (function shift right arithmetic) as Bool parameter if 

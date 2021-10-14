@@ -12,11 +12,13 @@ class Ex_1Test extends FreeSpec with ChiselScalatestTester{
         // c.io.in3.bits.poke(3.U)
 
         c.io.in.valid.poke(1.B)
-        c.io.in2.valid.poke(1.B)
+        
 
         // c.io.in3.valid.poke(1.B)
 
         c.io.consumer.ready.poke(1.B)
+        c.clock.step(5)
+        c.io.in2.valid.poke(1.B)
         c.clock.step(5)
         // c.io.consumer.bits.expect(2.U)
 

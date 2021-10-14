@@ -18,7 +18,6 @@ class LM_IO_Interface_ImmdValGen extends Bundle{
 
 class Task2 extends Module{
     val io = IO (new LM_IO_Interface_ImmdValGen)
-
     val zero5bit = Fill(5, 0.U)
 
     val immm_B = Cat(io.instr(31),io.instr(7),io.instr(30,25),io.instr(11,8), 0.U)
